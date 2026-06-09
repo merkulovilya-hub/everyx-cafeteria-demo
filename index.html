@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Everyx · Кафетерий льгот — платформа гибких льгот для сотрудников</title>
+  <meta name="description" content="Everyx (ex. Sodexo Россия) — платформа гибких льгот: кафетерий льгот, корпоративные скидки, ДМС, спорт, обучение и путешествия. Бесплатная базовая версия, экономия до 30% на налогах." />
+  <link rel="icon" href="assets/img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/tokens.css" />
+  <link rel="stylesheet" href="assets/css/app.css" />
+  <style>
+    .l-wrap { max-width: 1180px; margin: 0 auto; padding: 0 26px; }
+    section { margin: 0; }
+
+    /* nav */
+    .l-nav { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(1.4) blur(10px);
+      background: color-mix(in srgb,var(--background) 82%, transparent); border-bottom: 1px solid var(--border); }
+    .l-nav-in { display: flex; align-items: center; gap: 22px; height: 66px; }
+    .l-nav .logo { height: 30px; }
+    .l-nav-links { display: flex; gap: 24px; margin-left: 14px; }
+    .l-nav-links a { font-size: 14px; font-weight: 500; color: var(--muted-foreground); }
+    .l-nav-links a:hover { color: var(--foreground); }
+
+    /* hero */
+    .l-hero { position: relative; overflow: hidden; padding: 70px 0 80px;
+      background:
+        radial-gradient(120% 90% at 85% -10%, color-mix(in srgb,var(--honey) 26%, transparent), transparent 55%),
+        radial-gradient(100% 80% at 0% 0%, color-mix(in srgb,var(--primary) 20%, transparent), transparent 50%); }
+    .l-hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 50px; align-items: center; }
+    .l-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600;
+      padding: 6px 13px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+    .l-eyebrow .dot { background: var(--success); }
+    .l-hero h1 { font-size: 52px; line-height: 1.04; margin: 22px 0 18px; letter-spacing: -.03em; }
+    .l-hero h1 .hl { color: var(--primary); }
+    .l-hero .lead { font-size: 18px; color: var(--muted-foreground); max-width: 560px; line-height: 1.55; }
+    .l-hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+    .l-hero-meta { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 32px; }
+    .l-hero-meta .m b { font-family: var(--font-display); font-size: 26px; display: block; letter-spacing: -.02em; }
+    .l-hero-meta .m span { font-size: 13px; color: var(--muted-foreground); }
+
+    /* hero mock (browser frame) */
+    .mock { background: var(--card); border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--shadow-xl); overflow: hidden; }
+    .mock-bar { display: flex; align-items: center; gap: 7px; padding: 12px 14px; border-bottom: 1px solid var(--border); background: var(--secondary); }
+    .mock-bar i { width: 11px; height: 11px; border-radius: 999px; background: var(--muted-foreground); opacity: .4; }
+    .mock-bar .u { margin-left: 12px; font-size: 12px; color: var(--muted-foreground); font-family: var(--font-mono); }
+    .mock-body { padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+    .mock-cats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .mock .cat-card { min-height: 96px; padding: 13px; border-radius: var(--r-lg); }
+    .mock .cat-card h3 { font-size: 13px; } .mock .cat-card .c-count { display: none; }
+    .mock .cat-card .c-ico .ico { width: 20px; height: 20px; } .mock .cat-card .c-art .ico { width: 70px; height: 70px; }
+    .float-badge { position: absolute; background: var(--card); border: 1px solid var(--border); box-shadow: var(--shadow-lg);
+      border-radius: var(--r-lg); padding: 11px 14px; display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; }
+    .float-badge .ic { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; color: #fff; }
+
+    /* generic section */
+    .l-sec { padding: 76px 0; }
+    .l-sec.alt { background: color-mix(in srgb,var(--secondary) 50%, var(--background)); border-block: 1px solid var(--border); }
+    .l-head { text-align: center; max-width: 680px; margin: 0 auto 46px; }
+    .l-head .kicker { display: block; margin-bottom: 12px; color: var(--primary); }
+    .l-head h2 { font-size: 36px; letter-spacing: -.02em; }
+    .l-head p { color: var(--muted-foreground); margin-top: 14px; font-size: 16.5px; line-height: 1.55; }
+
+    /* trust */
+    .l-trust { padding: 30px 0; border-bottom: 1px solid var(--border); }
+    .l-trust .lbl { text-align: center; font-size: 12.5px; color: var(--muted-foreground); margin-bottom: 16px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; }
+    .l-trust .chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+
+    /* value cards */
+    .l-values { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+    .val { padding: 24px; }
+    .val .vi { width: 46px; height: 46px; border-radius: var(--r); display: grid; place-items: center; color: #fff; margin-bottom: 16px; }
+    .val h3 { font-size: 17px; } .val p { color: var(--muted-foreground); font-size: 14px; margin-top: 8px; line-height: 1.5; }
+
+    /* steps */
+    .l-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+    .l-step { padding: 26px; position: relative; }
+    .l-step .num { font-family: var(--font-display); font-size: 40px; color: color-mix(in srgb,var(--primary) 35%,transparent); line-height: 1; }
+    .l-step h3 { font-size: 18px; margin: 12px 0 8px; } .l-step p { color: var(--muted-foreground); font-size: 14.5px; line-height: 1.55; }
+
+    /* roles split */
+    .l-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .l-role { padding: 30px; display: flex; flex-direction: column; }
+    .l-role .rt { display: flex; align-items: center; gap: 12px; }
+    .l-role .ri { width: 48px; height: 48px; border-radius: var(--r); display: grid; place-items: center; color: #fff; }
+    .l-role h3 { font-size: 22px; } .l-role .rs { color: var(--muted-foreground); font-size: 14px; }
+    .l-role ul { list-style: none; margin: 20px 0; display: flex; flex-direction: column; gap: 11px; }
+    .l-role li { display: flex; gap: 10px; font-size: 14.5px; align-items: flex-start; }
+    .l-role li .ico { color: var(--success); flex: none; margin-top: 2px; width: 18px; height: 18px; }
+
+    /* numbers */
+    .l-nums { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; text-align: center; }
+    .l-num b { font-family: var(--font-display); font-size: 46px; color: var(--primary); letter-spacing: -.02em; display: block; }
+    .l-num span { color: var(--muted-foreground); font-size: 14.5px; }
+
+    /* pricing */
+    .l-pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; align-items: stretch; }
+    .price { padding: 30px; display: flex; flex-direction: column; }
+    .price.feat { border: 2px solid var(--primary); box-shadow: var(--shadow-lg); position: relative; }
+    .price.feat .ribbon { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); }
+    .price h3 { font-size: 19px; } .price .amt { font-family: var(--font-display); font-size: 38px; margin: 14px 0 4px; letter-spacing: -.02em; }
+    .price .amt small { font-size: 15px; color: var(--muted-foreground); font-family: var(--font-text); }
+    .price .pd { color: var(--muted-foreground); font-size: 13.5px; min-height: 38px; }
+    .price ul { list-style: none; margin: 18px 0 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+    .price li { display: flex; gap: 9px; font-size: 14px; align-items: flex-start; }
+    .price li .ico { color: var(--success); flex: none; width: 17px; height: 17px; margin-top: 2px; }
+
+    /* cta band */
+    .l-cta { border-radius: var(--r-2xl); padding: 54px; text-align: center; color: #fff; position: relative; overflow: hidden;
+      background: radial-gradient(120% 140% at 0% 0%, #e8694a, #bc4630 45%, #7c2d20); box-shadow: var(--shadow-xl); }
+    .l-cta::after { content: ''; position: absolute; right: -60px; bottom: -80px; width: 320px; height: 320px; border-radius: 50%; background: radial-gradient(circle, rgba(255,209,102,.4), transparent 65%); }
+    .l-cta h2 { font-size: 38px; position: relative; } .l-cta p { opacity: .92; margin-top: 14px; font-size: 17px; position: relative; }
+
+    /* footer */
+    .l-footer { border-top: 1px solid var(--border); padding: 46px 0 36px; margin-top: 76px; }
+    .l-foot-grid { display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
+    .l-footer .logo { height: 30px; margin-bottom: 14px; }
+    .l-footer .fmuted { color: var(--muted-foreground); font-size: 13.5px; max-width: 320px; line-height: 1.6; }
+    .l-foot-cols { display: flex; gap: 60px; flex-wrap: wrap; }
+    .l-foot-col b { font-size: 13px; display: block; margin-bottom: 12px; }
+    .l-foot-col a { display: block; color: var(--muted-foreground); font-size: 13.5px; margin-bottom: 9px; }
+    .l-foot-col a:hover { color: var(--primary); }
+    .l-foot-legal { margin-top: 30px; padding-top: 22px; border-top: 1px solid var(--border); font-size: 12.5px; color: var(--muted-foreground); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    .l-moburger { display: none; }
+    @media (max-width: 940px) {
+      .l-hero-grid { grid-template-columns: 1fr; gap: 36px; } .l-hero h1 { font-size: 40px; }
+      .l-values, .l-nums { grid-template-columns: repeat(2,1fr); } .l-steps, .l-roles, .l-pricing { grid-template-columns: 1fr; }
+      .l-nav-links { display: none; }
+    }
+    @media (max-width: 560px) { .l-hero h1 { font-size: 33px; } .l-head h2 { font-size: 28px; } .l-values { grid-template-columns: 1fr; } .l-cta { padding: 36px 22px; } .l-cta h2 { font-size: 28px; } }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header class="l-nav">
+    <div class="l-wrap l-nav-in">
+      <img class="evx-logo logo" src="assets/img/everyx-logo.svg" alt="Everyx" />
+      <nav class="l-nav-links">
+        <a href="#features">Возможности</a>
+        <a href="#categories">Категории льгот</a>
+        <a href="#roles">Для кого</a>
+        <a href="#pricing">Тарифы</a>
+      </nav>
+      <div class="spacer"></div>
+      <button class="iconbtn" id="themeBtn">☾</button>
+      <a class="btn btn-primary" href="app.html#emp/dashboard">Открыть демо</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="l-hero">
+    <div class="l-wrap l-hero-grid">
+      <div>
+        <span class="l-eyebrow"><span class="dot"></span>Everyx · ex. Sodexo Россия · 20 лет на рынке</span>
+        <h1>Кафетерий льгот, который <span class="hl">любят сотрудники</span> и ценит финдиректор</h1>
+        <p class="lead">Один бюджет в баллах — десятки льгот на выбор: ДМС, спорт, обучение, путешествия, корпоративные скидки. Сотрудник собирает свой пакет, компания экономит до 30% на налогах и взносах.</p>
+        <div class="l-hero-cta">
+          <a class="btn btn-primary btn-lg" href="app.html#emp/dashboard">Войти как сотрудник →</a>
+          <a class="btn btn-ghost btn-lg" href="app.html#adm/dashboard">Войти как HR / C&B</a>
+        </div>
+        <div class="l-hero-meta">
+          <div class="m"><b>−30%</b><span>налогов и взносов</span></div>
+          <div class="m"><b>0 ₽</b><span>базовая версия</span></div>
+          <div class="m"><b>7–14</b><span>дней до запуска</span></div>
+          <div class="m"><b>1500+</b><span>провайдеров</span></div>
+        </div>
+      </div>
+      <div style="position:relative">
+        <div class="mock" id="heroMock"></div>
+        <div class="float-badge" style="top:-18px;left:-18px"><div class="ic" style="background:var(--h3)" id="fb1"></div>Экономия 184 200 ₽/мес</div>
+        <div class="float-badge" style="bottom:-20px;right:-10px"><div class="ic" style="background:var(--h2)" id="fb2"></div>Утилизация бюджета 87%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="l-trust">
+    <div class="l-wrap">
+      <div class="lbl">Нам доверяют компании федерального масштаба · нефтегаз · банки · ритейл · фарма · производство</div>
+      <div class="chips" id="trustChips"></div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="l-sec" id="features">
+    <div class="l-wrap">
+      <div class="l-head"><span class="kicker">Почему это выгодно</span><h2>Льгота вместо индексации зарплаты</h2>
+        <p>Программа гибких льгот мотивирует сильнее прибавки к окладу — и обходится компании дешевле за счёт налоговой эффективности.</p></div>
+      <div class="l-values" id="valGrid"></div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="l-sec alt" id="categories">
+    <div class="l-wrap">
+      <div class="l-head"><span class="kicker">Каталог</span><h2>Восемь разделов льгот на любой вкус</h2>
+        <p>От ДМС и спорта до путешествий и поддержки. Состав разделов настраивается под политику компании.</p></div>
+      <div class="grid g4" id="catGrid"></div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section class="l-sec">
+    <div class="l-wrap">
+      <div class="l-head"><span class="kicker">Как это работает</span><h2>Три шага — и пакет собран</h2></div>
+      <div class="l-steps">
+        <div class="card l-step"><div class="num">01</div><h3>Компания начисляет баллы</h3><p>Бюджет льгот начисляется по правилам для каждой категории сотрудников — раз в год, автоматически по триггеру.</p></div>
+        <div class="card l-step"><div class="num">02</div><h3>Сотрудник выбирает льготы</h3><p>В личном кабинете сотрудник распределяет баллы между разделами и оформляет нужные карты, полисы и сертификаты.</p></div>
+        <div class="card l-step"><div class="num">03</div><h3>Оплата картой или по QR</h3><p>Льготы — на предоплаченных картах с оплатой онлайн и по QR. Не хватает баллов — можно доплатить картой.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ROLES -->
+  <section class="l-sec alt" id="roles">
+    <div class="l-wrap">
+      <div class="l-head"><span class="kicker">Два интерфейса</span><h2>Удобно сотруднику — управляемо для HR</h2>
+        <p>Откройте демо в любой роли и посмотрите обе стороны платформы.</p></div>
+      <div class="l-roles">
+        <div class="card l-role">
+          <div class="rt"><div class="ri" style="background:var(--h4)" id="roleEmpIco"></div><div><h3>Личный кабинет сотрудника</h3><div class="rs">Витрина льгот и оформление в пару кликов</div></div></div>
+          <ul id="roleEmpList"></ul>
+          <a class="btn btn-primary btn-block" href="app.html#emp/dashboard">Открыть кабинет сотрудника →</a>
+        </div>
+        <div class="card l-role">
+          <div class="rt"><div class="ri" style="background:var(--h6)" id="roleAdmIco"></div><div><h3>Панель администратора C&B</h3><div class="rs">Аналитика, начисления и отчётность</div></div></div>
+          <ul id="roleAdmList"></ul>
+          <a class="btn btn-dark btn-block" href="app.html#adm/dashboard">Открыть панель C&B →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS -->
+  <section class="l-sec">
+    <div class="l-wrap">
+      <div class="l-head"><span class="kicker">Доказательность</span><h2>Результаты, которые видит бизнес</h2></div>
+      <div class="l-nums">
+        <div class="l-num"><b>87%</b><span>средняя утилизация бюджета льгот</span></div>
+        <div class="l-num"><b>+9</b><span>рост eNPS вовлечённости за полгода</span></div>
+        <div class="l-num"><b>0,2 FTE</b><span>ресурс HR на администрирование</span></div>
+        <div class="l-num"><b>9</b><span>городов присутствия в демо-компании</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="l-sec alt" id="pricing">
+    <div class="l-wrap">
+      <div class="l-head"><span class="kicker">Тарифы</span><h2>Прозрачно и без лицензионной платы за старт</h2>
+        <p>Базовая версия — бесплатно. Платите только за расширенный функционал и интеграции.</p></div>
+      <div class="l-pricing">
+        <div class="card price">
+          <h3>Базовая</h3><div class="amt">0 ₽</div><div class="pd">Без лицензионной платы. Запуск за 7–14 дней.</div>
+          <ul>
+            <li>✓ Льготы на предоплаченных картах</li>
+            <li>✓ Оплата онлайн и по QR-коду</li>
+            <li>✓ Витрина некарточных льгот и заявок</li>
+            <li>✓ Личный кабинет сотрудника</li>
+            <li>✓ Кабинет администратора и базовая аналитика</li>
+            <li>✓ Доступ к платформе скидок ПрофПлюс</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="app.html#emp/dashboard">Попробовать в демо</a>
+        </div>
+        <div class="card price feat">
+          <span class="badge badge-primary ribbon">Популярно</span>
+          <h3>Расширенная</h3><div class="amt">60 ₽ <small>/ сотрудник / мес</small></div><div class="pd">Включает корпоративную платформу скидок по всей России.</div>
+          <ul>
+            <li>✓ Всё из базовой версии</li>
+            <li>✓ Многоуровневый каталог и роли доступа</li>
+            <li>✓ Интеграция с 1С ЗУП и системами компании</li>
+            <li>✓ Вшитые алгоритмы расчёта баллов</li>
+            <li>✓ Брендирование в тонах компании</li>
+            <li>✓ Расширенная аналитика и отчёты</li>
+          </ul>
+          <a class="btn btn-primary btn-block" href="app.html#adm/dashboard">Открыть демо C&B</a>
+        </div>
+        <div class="card price">
+          <h3>Доработки</h3><div class="amt">3 850 ₽ <small>/ чел-час</small></div><div class="pd">Индивидуальные настройки и бизнес-процессы под компанию.</div>
+          <ul>
+            <li>✓ Кастомные сценарии согласования</li>
+            <li>✓ Дополнительные интеграции</li>
+            <li>✓ Уникальные разделы и отчёты</li>
+            <li>✓ Карты: комиссия ~1,1% от оборота</li>
+            <li>✓ Срок доработок — до 3 недель</li>
+            <li>✓ Выделенный менеджер проекта</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="#contacts">Обсудить задачу</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="l-sec">
+    <div class="l-wrap">
+      <div class="l-cta">
+        <h2>Посмотрите кафетерий льгот в действии</h2>
+        <p>Интерактивное демо: соберите пакет льгот как сотрудник и оцените аналитику как HR.</p>
+        <div class="l-hero-cta" style="justify-content:center;margin-top:28px">
+          <a class="btn btn-lg" style="background:#fff;color:#7c2d20" href="app.html#emp/dashboard">Кабинет сотрудника</a>
+          <a class="btn btn-lg btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.5)" href="app.html#adm/dashboard">Панель C&B</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="l-footer" id="contacts">
+    <div class="l-wrap">
+      <div class="l-foot-grid">
+        <div>
+          <img class="evx-logo logo" src="assets/img/everyx-logo.svg" alt="Everyx" />
+          <p class="fmuted">Everyx (ex. Sodexo Россия) — более 20 лет создаёт решения для корпоративного питания, льгот, мотивации и благополучия сотрудников. Основоположник системы кафетерия льгот в России.</p>
+        </div>
+        <div class="l-foot-cols">
+          <div class="l-foot-col"><b>Продукт</b>
+            <a href="app.html#emp/dashboard">Кабинет сотрудника</a><a href="app.html#adm/dashboard">Панель C&B</a><a href="app.html#emp/discounts">Скидки ПрофПлюс</a><a href="#pricing">Тарифы</a></div>
+          <div class="l-foot-col"><b>Решения</b>
+            <a href="app.html#emp/section/health">ДМС и здоровье</a><a href="app.html#emp/section/sport">Спорт</a><a href="app.html#emp/section/education">Обучение</a><a href="app.html#emp/section/travel">Путешествия</a></div>
+          <div class="l-foot-col"><b>Контакты</b>
+            <a href="https://everyx.ru" target="_blank">everyx.ru</a><a href="tel:88000000000">8 800 000-00-00</a><a href="mailto:sales@everyx.ru">sales@everyx.ru</a></div>
+        </div>
+      </div>
+      <div class="l-foot-legal">
+        <span>© 2026 ООО «Эверикс Рус». Демонстрационная версия. Компания и сотрудники в демо вымышлены.</span>
+        <span>Каталог скидок — по образцу платформы ПрофПлюс. Дизайн-система Burnt Coral.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/ui.js"></script>
+  <script>
+    (function () {
+      var D = window.DB, U = window.UI;
+      // theme
+      try { if (localStorage.getItem('evx-theme') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
+      function syncLogos() {
+        var dark = document.documentElement.classList.contains('dark');
+        document.querySelectorAll('.evx-logo').forEach(function (i) { i.src = 'assets/img/everyx-logo' + (dark ? '-dark' : '') + '.svg'; });
+        var tb = document.getElementById('themeBtn'); if (tb) tb.textContent = dark ? '☀' : '☾';
+      }
+      syncLogos();
+      document.getElementById('themeBtn').addEventListener('click', function () {
+        var dark = document.documentElement.classList.toggle('dark');
+        try { localStorage.setItem('evx-theme', dark ? 'dark' : 'light'); } catch (e) {}
+        syncLogos();
+      });
+
+      // hero mock — self-contained wallet preview
+      function walletMock() {
+        var u = D.user, pct = Math.round(u.spent / u.allocated * 100);
+        return '<div class="wallet"><span class="badge badge-honey w-badge">' + ICON('sparkles', 12) + ' Кафетерий льгот</span>' +
+          '<div class="w-k">Доступно баллов</div>' +
+          '<div class="w-bal">' + U.fmt(u.balance) + ' <small>баллов</small></div>' +
+          '<div class="w-sub">из ' + U.fmt(u.allocated) + ' начисленных · 1 балл = 1 ₽</div>' +
+          '<div class="w-bar"><i data-w="' + pct + '" style="width:0%"></i></div>' +
+          '<div class="w-row"><div class="w-stat"><b>' + U.fmt(u.spent) + '</b><span>Потрачено</span></div>' +
+          '<div class="w-stat"><b>' + u.accrualNext + '</b><span>Начисление</span></div></div></div>';
+      }
+      document.getElementById('heroMock').innerHTML =
+        '<div class="mock-bar"><i></i><i></i><i></i><span class="u">everyx.ru/cafeteria</span></div>' +
+        '<div class="mock-body">' + walletMock() +
+        '<div class="mock-cats">' + D.sections.slice(0, 3).map(function (s) {
+          return '<a class="cat-card hue-' + s.hue + '"><div class="c-art">' + ICON(s.icon, 24) + '</div><div class="c-ico">' + ICON(s.icon, 24) + '</div><h3>' + U.esc(s.name) + '</h3></a>';
+        }).join('') + '</div></div>';
+      U.animateBars(document.getElementById('heroMock'));
+      document.getElementById('fb1').innerHTML = ICON('coins', 17);
+      document.getElementById('fb2').innerHTML = ICON('chart', 17);
+
+      // trust chips
+      document.getElementById('trustChips').innerHTML = D.partners.map(function (p) { return U.brandChip(p); }).join('');
+
+      // value cards
+      var vals = [
+        ['percent', 'h4', '−30% на налогах', 'Льготы не облагаются взносами как зарплата — та же ценность для сотрудника обходится компании дешевле.'],
+        ['wallet', 'h2', 'Бесплатный старт', 'Базовая версия платформы — без лицензионной платы. Для сотрудников выпуск карт и использование бесплатны.'],
+        ['bolt', 'h6', 'Запуск за 7–14 дней', 'Готовое решение «под ключ» с быстрой настройкой и брендированием в тонах компании.'],
+        ['sparkles', 'h3', 'Рост вовлечённости', 'Сотрудник сам выбирает, что ему нужно — это работает на удержание и eNPS лучше единой льготы.'],
+      ];
+      document.getElementById('valGrid').innerHTML = vals.map(function (v) {
+        return '<div class="card val"><div class="vi" style="background:var(--' + v[1] + ')">' + ICON(v[0], 22) + '</div><h3>' + v[2] + '</h3><p>' + v[3] + '</p></div>';
+      }).join('');
+
+      // categories
+      document.getElementById('catGrid').innerHTML = D.sections.map(function (s) {
+        return '<a class="cat-card hue-' + s.hue + '" href="app.html#emp/section/' + s.id + '"><div class="c-art">' + ICON(s.icon, 24) + '</div>' +
+          '<div class="c-ico">' + ICON(s.icon, 24) + '</div><div><h3>' + U.esc(s.name) + '</h3><p>' + U.esc(s.tagline) + '</p>' +
+          '<div class="c-count">' + s.items.length + ' ' + U.plural(s.items.length, ['льгота', 'льготы', 'льгот']) + ' ' + ICON('arrowR', 14) + '</div></div></a>';
+      }).join('');
+
+      // roles
+      document.getElementById('roleEmpIco').innerHTML = ICON('support', 24);
+      document.getElementById('roleAdmIco').innerHTML = ICON('chart', 24);
+      var empF = ['Кошелёк баллов и прогресс утилизации', 'Каталог из 8 разделов + корпоративные скидки', 'Оформление с доплатой картой и кодом активации', 'Total Reward — полная стоимость пакета', 'История операций и заказов'];
+      var admF = ['BI-дашборд: срезы по грейдам, городам, категориям', 'Управление сотрудниками и ручные корректировки', 'Начисление баллов с проверкой перед публикацией', 'Отчёты: НДФЛ, заказы, остатки, бордеро', 'Брендирование и интеграция с 1С ЗУП'];
+      document.getElementById('roleEmpList').innerHTML = empF.map(function (t) { return '<li>' + ICON('check', 18) + U.esc(t) + '</li>'; }).join('');
+      document.getElementById('roleAdmList').innerHTML = admF.map(function (t) { return '<li>' + ICON('check', 18) + U.esc(t) + '</li>'; }).join('');
+    })();
+  </script>
+</body>
+</html>

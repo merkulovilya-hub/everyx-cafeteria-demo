@@ -1,0 +1,101 @@
+/**
+ * shadcn/ui theme — Burnt Coral.
+ * Generated from @meal-pay/design-tokens (keep in sync with src/tokens.ts).
+ *
+ * Web usage (Next.js admin), in app/globals.css:
+ *   @import "@meal-pay/design-tokens/tokens.css";
+ *   @tailwind base;
+ *   @tailwind components;
+ *   @tailwind utilities;
+ *
+ * Dark mode: add class="dark" on <html> (next-themes or manual).
+ */
+
+:root {
+  /* surfaces */
+  --background: #faf3ed; /* sand-50 */
+  --foreground: #271710; /* sand-900 */
+  --card: #ffffff;
+  --card-foreground: #271710;
+  --popover: #ffffff;
+  --popover-foreground: #271710;
+
+  /* brand */
+  --primary: #d2553b; /* coral-500 · Burnt Coral */
+  --primary-foreground: #fff2eb;
+
+  /* neutral UI roles */
+  --secondary: #f3e9df; /* sand-100 */
+  --secondary-foreground: #4f423a; /* sand-700 */
+  --muted: #f3e9df;
+  --muted-foreground: #6e5d53; /* sand-600 */
+  --accent: #f3e9df; /* subtle hover bg — NOT the brand honey */
+  --accent-foreground: #4f423a;
+
+  /* status */
+  --destructive: #c81e36; /* danger-500 (cooler crimson, distinct from coral) */
+  --destructive-foreground: #ffffff;
+
+  /* lines & focus */
+  --border: #e7d8c9; /* sand-200 */
+  --input: #e7d8c9;
+  --ring: #d2553b;
+
+  --radius: 0.75rem;
+
+  /* ---- brand extras (beyond base shadcn) ---- */
+  --honey: #e9a35b; /* honey-400 secondary accent */
+  --success: #4e8a5b;
+  --success-foreground: #f2f7f3;
+  --warning: #c77e1a;
+  --warning-foreground: #ffffff;
+  --info: #2e7b73;
+  --info-foreground: #ffffff;
+
+  /* charts (warm, in-family) */
+  --chart-1: #d2553b; /* coral */
+  --chart-2: #e9a35b; /* honey */
+  --chart-3: #4e8a5b; /* success green */
+  --chart-4: #b14a2c; /* clay */
+  --chart-5: #91806f; /* sand-500 */
+}
+
+.dark {
+  --background: #1a0f0b;
+  --foreground: #f4e8e0;
+  --card: #251712;
+  --card-foreground: #f4e8e0;
+  --popover: #251712;
+  --popover-foreground: #f4e8e0;
+
+  --primary: #e8694a; /* dark-tuned Burnt Coral */
+  --primary-foreground: #2a0e07;
+
+  --secondary: #342a24; /* sand-800 */
+  --secondary-foreground: #f3e9df;
+  --muted: #342a24;
+  --muted-foreground: #ac978b;
+  --accent: #342a24;
+  --accent-foreground: #f3e9df;
+
+  --destructive: #e14256;
+  --destructive-foreground: #2a0e07;
+
+  --border: #2f1f18;
+  --input: #2f1f18;
+  --ring: #e8694a;
+
+  --honey: #e9a35b;
+  --success: #6fb07e;
+  --success-foreground: #0e1a12;
+  --warning: #deaa45;
+  --warning-foreground: #261a07;
+  --info: #43938b;
+  --info-foreground: #0e1a18;
+
+  --chart-1: #e8694a;
+  --chart-2: #e9a35b;
+  --chart-3: #6fb07e;
+  --chart-4: #d26a45;
+  --chart-5: #b6a18e;
+}
